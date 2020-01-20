@@ -1,0 +1,77 @@
+@import (reference) 'style/var/color';
+
+.optionListWrapper {
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
+  margin: 8px 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 8px 0;
+  -webkit-animation: animation-1tn3bu7 250ms 1;
+  animation: animation-1tn3bu7 250ms 1;
+}
+
+.optionList {
+  max-height: 250px;
+  overflow-y: auto;
+  padding-bottom: 0;
+  padding-top: 0;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+.noOptionMessageText {
+  margin: 0;
+  padding: 0 4px 0 8px;
+}
+
+.option {
+  margin: 0;
+  list-style-type: none;
+  cursor: pointer;
+  display: flex;
+  font-size: inherit;
+  padding: 4px 12px;
+  width: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  box-sizing: border-box;
+  min-height: 32px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  &--multi {
+    padding: 4px 0;
+  }
+
+  &--hovered {
+    background-color: @hover;
+  }
+
+  &--selected {
+    background-color: @azure;
+    color: @white;
+
+    &:hover {
+      background-color: @azure;
+    }
+  }
+}
+
+.doneIcon {
+  visibility: hidden;
+  margin: 0 4px;
+
+  &--selected {
+    visibility: visible;
+  }
+}
