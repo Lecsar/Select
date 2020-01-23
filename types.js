@@ -1,81 +1,59 @@
 // @flow
 
-export type TBaseOption = {
-  id: IdType,
-  name: string,
-};
+import {type PropTypesPosition} from 'components/field/Group';
+import {type TSize} from 'components/InputBase';
 
-export type TOptionProps<T: TBaseOption> = {|
-  value: T,
-  name: string,
-  index?: number,
-  isSelected?: boolean,
-  isHovered?: boolean,
-  onClick?: (value: T) => void,
-  setOptionHoverIndex?: (index: number) => void,
-|};
+import {
+  type TBaseSelectClassNames,
+  type TCustomOption,
+  type TOptionClassNames,
+} from './Options/types';
 
-export type TGetOptionHandlers<Option, OptionValue> = {|
+export type TGetOptionHandlers<Option> = {|
   getOptionKey?: (o?: Option) => IdType,
   getOptionName?: (o?: Option) => string,
-  getOptionValue?: (o?: Option) => OptionValue,
+  getOptionValue?: (o?: Option) => IdType,
 |};
 
-type TCustomOption<Option> = (
-  optionProps: TOptionProps<Option>
-) => React$Element<any>;
-
-export type TOptionListProps<Option, OptionValue> = {|
-  ...TGetOptionHandlers<Option, OptionValue>,
-  value?: Option | Option[],
-  options: Option[],
-  optionHoverIndex: number,
-  isLoading?: boolean,
-  noOptionsMessage: string,
-  closeMenu: () => void,
-  setOptionHoverIndex: (index: number) => void,
-  onChange: (o: Option) => void,
-  CustomOption?: TCustomOption<Option>,
+export type TSelectClassNames = {|
+  select?: TBaseSelectClassNames,
+  option?: TOptionClassNames,
 |};
 
-export type TBaseSelectProps<Option, OptionValue> = {|
-  ...TGetOptionHandlers<Option, OptionValue>,
+type TGeneralSelectProps<Option> = {|
+  ...TGetOptionHandlers<Option>,
+  classNames?: TSelectClassNames,
   options: Option[],
-  isOpen: boolean,
-  value: Option | Option[],
+  size?: TSize,
+  position?: PropTypesPosition,
   placeholder?: string,
+  error?: string,
   isLoading?: boolean,
   isDisabled?: boolean,
   noOptionsMessage?: string,
-  selectText?: string,
+  onClear?: (event: SyntheticEvent<HTMLElement>) => void,
+  CustomOption?: TCustomOption<Option>,
+  SelectInput?: React$Element<any>,
+|};
+
+export type TBaseSelectProps<Option> = {|
+  ...TGeneralSelectProps<Option>,
+  isOpen: boolean,
+  value?: Option | Option[],
   hasDropDownIcon?: boolean,
   hasClearIcon?: boolean,
   setOpen: (isOpen: boolean) => void,
   onChange: (o: Option) => void,
-  onClear?: (event: SyntheticEvent<HTMLElement>) => void,
-  CustomOption?: TCustomOption<Option>,
 |};
 
-export type TSelectProps<Option, OptionValue> = {|
-  ...TGetOptionHandlers<Option, OptionValue>,
-  initialValue: Option,
-  options: Option[],
-  placeholder?: string,
-  isDisabled?: boolean,
-  noOptionsMessage?: string,
+export type TSelectProps<Option> = {|
+  ...TGeneralSelectProps<Option>,
+  initialValue?: Option,
   onChange: (o?: Option) => void,
-  onClear?: (event: SyntheticEvent<HTMLElement>) => void,
-  CustomOption?: TCustomOption<Option>,
 |};
 
-export type TMultiSelectProps<Option, OptionValue> = {|
-  ...TGetOptionHandlers<Option, OptionValue>,
+export type TMultiSelectProps<Option> = {|
+  ...TGeneralSelectProps<Option>,
   initialValues: Option[],
-  options: Option[],
-  placeholder?: string,
-  isDisabled?: boolean,
-  noOptionsMessage?: string,
   onChange: (options: Option[]) => void,
-  onClear?: (event: SyntheticEvent<HTMLElement>) => void,
-  CustomOption?: TCustomOption<Option>,
 |};

@@ -1,4 +1,4 @@
-// @flow strict
+// @flow
 
 export const optionList = [
   {id: 1, name: 'Test_1'},
@@ -18,3 +18,12 @@ export const optionList = [
   {id: 11, name: 'Test_11'},
   {id: 12, name: 'Test_12'},
 ];
+
+export const mockLoadOptions = (searchValue: string): Promise<any[]> =>
+  new Promise(res =>
+    setTimeout(
+      () =>
+        res(optionList.filter(option => option.name.indexOf(searchValue) >= 0)),
+      1000
+    )
+  );

@@ -1,10 +1,11 @@
 // @flow strict
 
 import React, {useCallback, useMemo, useState} from 'react';
-import classNames from 'classnames/bind';
+import cn from 'classnames/bind';
 import noop from 'lodash/noop';
 
 import ClickOutside from 'components/ClickOutside';
+import {SIZE} from 'components/InputBase';
 
 import {
   defaultGetOptionKey,
@@ -12,25 +13,31 @@ import {
   defaultGetOptionValue,
   defaultNoOptionsMessage,
 } from './defaultValues';
+import {getSelectClassNameWithModificators} from './helpers';
 import {OptionList} from './Options';
+import {type TBaseOption} from './Options/types';
 import {SelectIcons} from './SelectIcons';
-import {type TBaseOption, type TBaseSelectProps} from './types';
+import {type TBaseSelectProps} from './types';
 
 import style from './style.less';
 
-const cx = classNames.bind(style);
+const cx = cn.bind(style);
 
-export const BaseSelect = <T: TBaseOption, K: mixed>({
+export const BaseSelect = <T: TBaseOption>({
+  classNames = {},
   value: selectedValue,
   options,
   placeholder = '',
+  error = '',
   isOpen = false,
   isLoading = false,
   isDisabled = false,
   onChange = noop,
   noOptionsMessage = defaultNoOptionsMessage,
+  position,
+  size = SIZE.sm,
   CustomOption,
-  selectText = '',
+  SelectInput,
   hasDropDownIcon = false,
   hasClearIcon = false,
   setOpen = noop,
@@ -38,7 +45,9 @@ export const BaseSelect = <T: TBaseOption, K: mixed>({
   getOptionName = defaultGetOptionName,
   getOptionValue = defaultGetOptionValue,
   onClear = noop,
-}: TBaseSelectProps<T, K>) => {
+}: TBaseSelectProps<T>) => {
+  const {select: selectCn = {}, option: optionCn} = classNames;
+
   const [optionHoverIndex, setOptionHoverIndex] = useState(0);
   const isMultiSelection = useMemo(() => Array.isArray(selectedValue), [
     selectedValue,
@@ -68,7 +77,7 @@ export const BaseSelect = <T: TBaseOption, K: mixed>({
   );
 
   const getMultiSelectText = useCallback(
-    (selectedOptions: Array<T>) => {
+    (selectedOptions: T[]) => {
       switch (selectedOptions.length) {
         case 0:
           return '';
@@ -81,45 +90,71 @@ export const BaseSelect = <T: TBaseOption, K: mixed>({
     [getOptionName]
   );
 
-  const getSelectText = useCallback(() => {
-    if (selectText) {
-      return selectText;
-    }
-
-    if (Array.isArray(selectedValue)) {
-      return getMultiSelectText(selectedValue);
-    }
-
-    return getOptionName(selectedValue);
-  }, [selectText, selectedValue, getOptionName, getMultiSelectText]);
+  const getSelectText = useCallback(
+    () =>
+      Array.isArray(selectedValue)
+        ? getMultiSelectText(selectedValue)
+        : getOptionName(selectedValue),
+    [selectedValue, getOptionName, getMultiSelectText]
+  );
 
   const renderSelectText = useCallback(
     (selectText: string) => (
-      <div className={cx('selectText', {'selectText--disabled': isDisabled})}>
+      <p
+        className={cx(
+          'selectText',
+          {'selectText--disabled': isDisabled},
+          selectCn.selectText
+        )}
+      >
         {selectText}
-      </div>
+      </p>
     ),
-    [isDisabled]
+    [isDisabled, selectCn]
   );
 
   const renderSelectPlaceholder = useCallback(
-    () => <div className={cx('selectPlaceholder')}>{placeholder}</div>,
-    [placeholder]
+    () => (
+      <div className={cx('selectPlaceholder', selectCn.selectPlaceholder)}>
+        {placeholder}
+      </div>
+    ),
+    [placeholder, selectCn]
   );
+
+  const renderSelectInput = useCallback(() => {
+    if (SelectInput) {
+      return SelectInput;
+    }
+
+    const selectText = getSelectText();
+
+    return selectText
+      ? renderSelectText(selectText)
+      : renderSelectPlaceholder();
+  }, [SelectInput, getSelectText, renderSelectText, renderSelectPlaceholder]);
+
+  const innerWrapperModificators = {
+    position,
+    size,
+    isDisabled,
+    isFocused: isOpen,
+    hasError: Boolean(error),
+  };
 
   return (
     <ClickOutside onClickOutside={closeMenu}>
-      <div className={cx('wrapper')} onClick={toggleMenu}>
+      <div className={cx('wrapper', selectCn.wrapper)} onClick={toggleMenu}>
         <div
           className={cx(
-            'innerWrapper',
-            {'innerWrapper--open': isOpen},
-            {'innerWrapper--disabled': isDisabled}
+            getSelectClassNameWithModificators(
+              'innerWrapper',
+              innerWrapperModificators
+            ),
+            selectCn.innerWrapper
           )}
         >
-          {getSelectText()
-            ? renderSelectText(getSelectText())
-            : renderSelectPlaceholder()}
+          <div className={cx('selectInputWrapper')}>{renderSelectInput()}</div>
 
           <SelectIcons
             isOpen={isOpen}
@@ -133,6 +168,7 @@ export const BaseSelect = <T: TBaseOption, K: mixed>({
 
         {isOpen && (
           <OptionList
+            classNames={optionCn}
             value={selectedValue}
             options={options}
             isLoading={isLoading}

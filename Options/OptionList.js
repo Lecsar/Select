@@ -17,15 +17,16 @@ import {
   defaultNoOptionsMessage,
 } from '../defaultValues';
 import {getIsSelectedOption} from '../helpers';
-import {type TBaseOption, type TOptionListProps} from '../types';
 import {Option} from './';
 import {MultiOption} from './MultiOption';
+import {type TBaseOption, type TOptionListProps} from './types';
 
 import style from './style.less';
 
 const cx = classNames.bind(style);
 
-export const OptionList = <T: TBaseOption, K: mixed>({
+export const OptionList = <T: TBaseOption>({
+  classNames = {},
   value: selectedValue,
   options = [],
   optionHoverIndex = -1,
@@ -38,12 +39,12 @@ export const OptionList = <T: TBaseOption, K: mixed>({
   getOptionName = defaultGetOptionName,
   getOptionValue = defaultGetOptionValue,
   CustomOption,
-}: TOptionListProps<T, K>) => {
+}: TOptionListProps<T>) => {
   const optionsMaxIndex = useMemo(() => options.length - 1, [options.length]);
 
   const setNextHoverIndex = useCallback(() => {
     const nextIndex =
-      optionHoverIndex + 1 < optionsMaxIndex ? optionHoverIndex + 1 : 0;
+      optionHoverIndex + 1 <= optionsMaxIndex ? optionHoverIndex + 1 : 0;
     setOptionHoverIndex(nextIndex);
   }, [optionHoverIndex, optionsMaxIndex, setOptionHoverIndex]);
 
@@ -96,6 +97,7 @@ export const OptionList = <T: TBaseOption, K: mixed>({
 
       const generalOptionProps = {
         key: getOptionKey(currentOption),
+        className: classNames.option,
         name: getOptionName(currentOption),
         value: currentOption,
         index,
@@ -118,6 +120,7 @@ export const OptionList = <T: TBaseOption, K: mixed>({
     [
       selectedValue,
       optionHoverIndex,
+      classNames,
       onChange,
       setOptionHoverIndex,
       getOptionKey,
@@ -127,22 +130,43 @@ export const OptionList = <T: TBaseOption, K: mixed>({
     ]
   );
 
+  const renderNoOptionMessage = useCallback(
+    (message: string) => (
+      <p className={cx('noOptionMessageText', classNames.noOptionMessageText)}>
+        {message}
+      </p>
+    ),
+    [classNames]
+  );
+
   const renderOptionList = useCallback(
     (options: T[]) => {
       if (isLoading) {
-        return <p className={cx('noOptionMessageText')}>Загрузка...</p>;
+        return renderNoOptionMessage('Загрузка...');
       }
 
       if (options.length === 0) {
-        return <p className={cx('noOptionMessageText')}>{noOptionsMessage}</p>;
+        return renderNoOptionMessage(noOptionsMessage);
       }
 
-      return <ul className={cx('optionList')}>{options.map(renderOption)}</ul>;
+      return (
+        <ul className={cx('optionList', classNames.optionList)}>
+          {options.map(renderOption)}
+        </ul>
+      );
     },
-    [noOptionsMessage, isLoading, renderOption]
+    [
+      noOptionsMessage,
+      isLoading,
+      classNames,
+      renderOption,
+      renderNoOptionMessage,
+    ]
   );
 
   return (
-    <div className={cx('optionListWrapper')}>{renderOptionList(options)}</div>
+    <div className={cx('optionListWrapper', classNames.optionListWrapper)}>
+      {renderOptionList(options)}
+    </div>
   );
 };

@@ -7,13 +7,11 @@ import {storiesOf} from 'modules/storybook';
 import {MultiSelect, Select} from './';
 import {optionList} from './mocks';
 
-const test = () => <div />;
-
 storiesOf(module).add('NEW_SELECT', () => {
   return (
     <div style={{margin: '30px 40px'}}>
       <Select
-        initialValue={optionList[2]}
+        initialValue={optionList[1]}
         options={optionList}
         onChange={console.log}
       />

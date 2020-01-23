@@ -4,13 +4,14 @@ import React, {memo, useCallback} from 'react';
 import classNames from 'classnames/bind';
 import noop from 'lodash/noop';
 
-import {type TBaseOption, type TOptionProps} from '../types';
+import {type TBaseOption, type TOptionProps} from './types';
 
 import style from './style.less';
 
 const cx = classNames.bind(style);
 
 const BaseOption = <T: TBaseOption>({
+  className,
   name,
   value,
   index = -1,
@@ -38,7 +39,8 @@ const BaseOption = <T: TBaseOption>({
       className={cx(
         'option',
         {'option--selected': isSelected},
-        {'option--hovered': isHovered}
+        {'option--hovered': isHovered},
+        className
       )}
       onClick={selectOption}
       onMouseOver={setHoverIndex}

@@ -6,13 +6,14 @@ import noop from 'lodash/noop';
 
 import Icon from 'components/Icon';
 
-import {type TBaseOption, type TOptionProps} from '../types';
+import {type TBaseOption, type TOptionProps} from './types';
 
 import style from './style.less';
 
 const cx = classNames.bind(style);
 
 const MultiOptionBase = <T: TBaseOption>({
+  className,
   name,
   value,
   index = -1,
@@ -37,15 +38,23 @@ const MultiOptionBase = <T: TBaseOption>({
 
   return (
     <li
-      className={cx('option', 'option--multi', {'option--hovered': isHovered})}
+      className={cx(
+        'option',
+        'option--multi',
+        {'option--hovered': isHovered},
+        className
+      )}
       onClick={selectOption}
       onMouseOver={setHoverIndex}
     >
-      <Icon
-        className={cx('icon', 'doneIcon', {'doneIcon--selected': isSelected})}
-        name="done"
-      />
-      {name}
+      <div>
+        <Icon
+          className={cx('icon', 'doneIcon', {'doneIcon--selected': isSelected})}
+          name="done"
+        />
+      </div>
+
+      <p>{name}</p>
     </li>
   );
 };
