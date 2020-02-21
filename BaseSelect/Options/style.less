@@ -1,22 +1,26 @@
 @import (reference) 'style/var/color';
 
 .optionListWrapper {
-  background-color: hsl(0, 0%, 100%);
+  background-color: white;
   border-radius: 3px;
   box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
-  margin: 8px 0;
-  position: absolute;
-  width: 100%;
-  z-index: 1;
+  z-index: 10;
   box-sizing: border-box;
   padding: 8px 0;
   -webkit-animation: animation-1tn3bu7 250ms 1;
   animation: animation-1tn3bu7 250ms 1;
+
+  &_topMargin {
+    margin-top: 5px;
+  }
+
+  &_bottomMargin {
+    margin-bottom: 5px;
+  }
 }
 
 .optionList {
-  max-height: 250px;
-  overflow-y: auto;
+  width: 100%;
   padding-bottom: 0;
   padding-top: 0;
   position: relative;
@@ -25,7 +29,6 @@
 }
 
 .noOptionMessageText {
-  margin: 0;
   padding: 0 4px 0 8px;
 }
 
@@ -49,29 +52,16 @@
   -ms-flex-align: center;
   align-items: center;
 
-  &--multi {
-    padding: 4px 0;
-  }
-
-  &--hovered {
+  &_hovered {
     background-color: @hover;
   }
 
-  &--selected {
+  &_selected {
     background-color: @azure;
     color: @white;
 
     &:hover {
       background-color: @azure;
     }
-  }
-}
-
-.doneIcon {
-  visibility: hidden;
-  margin: 0 4px;
-
-  &--selected {
-    visibility: visible;
   }
 }

@@ -1,10 +1,10 @@
-// @flow
+// @flow strict
 
 import {type TGetOptionHandlers} from '../types';
 
 export type TBaseOption = {
-  id?: IdType,
-  name?: string,
+  +id?: IdType,
+  +name?: string,
 };
 
 export type TOptionProps<T: TBaseOption> = {|
@@ -15,12 +15,10 @@ export type TOptionProps<T: TBaseOption> = {|
   isSelected?: boolean,
   isHovered?: boolean,
   onClick?: (value: T) => void,
-  setOptionHoverIndex?: (index: number) => void,
+  onSetOptionHoverIndex?: (index: number) => void,
 |};
 
-export type TCustomOption<Option> = (
-  optionProps: TOptionProps<Option>
-) => React$Element<any>;
+export type TCustomOption<Option: TBaseOption> = React$AbstractComponent<TOptionProps<Option>, mixed>;
 
 export type TOptionClassNames = {|
   noOptionMessageText?: string,
@@ -32,12 +30,15 @@ export type TOptionClassNames = {|
 export type TBaseSelectClassNames = {|
   wrapper?: string,
   innerWrapper?: string,
+  selectInputWrapper?: string,
+  iconsWrapper?: string,
   selectText?: string,
   selectPlaceholder?: string,
 |};
 
 export type TOptionListProps<Option> = {|
   ...TGetOptionHandlers<Option>,
+  width?: number | string,
   classNames?: TOptionClassNames,
   value?: Option | Option[],
   options: Option[],
@@ -45,7 +46,9 @@ export type TOptionListProps<Option> = {|
   isLoading?: boolean,
   noOptionsMessage: string,
   closeMenu: () => void,
-  setOptionHoverIndex: (index: number) => void,
+  onSetOptionHoverIndex: (index: number) => void,
   onChange: (o: Option) => void,
-  CustomOption?: TCustomOption<Option>,
+  optionListHeader?: React$Node,
+  optionListFooter?: React$Node,
+  CustomOptionComponent?: TCustomOption<Option>,
 |};

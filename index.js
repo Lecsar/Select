@@ -1,7 +1,5 @@
 //@flow strict
 
 export {BaseSelect} from './BaseSelect';
-export {Select} from './Select';
+export {Select} from './SingleSelect';
 export {MultiSelect} from './MultiSelect';
-
-export {TBaseSelectProps} from './types';

@@ -28,8 +28,10 @@ export const SelectIcons = ({
   hasDropDownIcon = false,
   onClear = noop,
 }: TSelectIconsProps) => {
-  const onClickClear = useCallback(
+  const handleClear = useCallback(
     (event: SyntheticEvent<HTMLElement>) => {
+      event.stopPropagation();
+
       if (!isDisabled) {
         onClear(event);
       }
@@ -37,43 +39,19 @@ export const SelectIcons = ({
     [isDisabled, onClear]
   );
 
-  const renderIcons = useCallback(() => {
-    if (isLoading) {
-      return <Spinner className={cx('spinner')} size="sm" />;
-    }
+  if (isLoading) {
+    return <Spinner className={cx('spinner')} size="sm" />;
+  }
 
-    const icons = [];
-
-    if (hasClearIcon) {
-      icons.push(
+  return (
+    <>
+      {hasClearIcon && <Icon className={cx('icon', {icon_disabled: isDisabled})} name="clear" onClick={handleClear} />}
+      {hasDropDownIcon && (
         <Icon
-          key="clear"
-          className={cx('icon', {'icon--disabled': isDisabled})}
-          name="clear"
-          onClick={onClickClear}
-        />
-      );
-    }
-
-    if (hasDropDownIcon) {
-      icons.push(
-        <Icon
-          key="arrow"
-          className={cx('icon', {'icon--disabled': isDisabled})}
+          className={cx('icon', {icon_disabled: isDisabled})}
           name={isOpen ? 'select-arrow-up' : 'select-arrow-dn'}
         />
-      );
-    }
-
-    return icons;
-  }, [
-    isLoading,
-    hasClearIcon,
-    hasDropDownIcon,
-    isOpen,
-    isDisabled,
-    onClickClear,
-  ]);
-
-  return <div className={cx('iconsWrapper')}>{renderIcons()}</div>;
+      )}
+    </>
+  );
 };

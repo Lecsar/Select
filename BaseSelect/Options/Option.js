@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 
 import React, {memo, useCallback} from 'react';
 import classNames from 'classnames/bind';
@@ -18,36 +18,29 @@ const BaseOption = <T: TBaseOption>({
   isSelected,
   isHovered = false,
   onClick = noop,
-  setOptionHoverIndex = noop,
+  onSetOptionHoverIndex = noop,
 }: TOptionProps<T>) => {
-  const setHoverIndex = useCallback(() => {
+  const handleSetHoverIndex = useCallback(() => {
     if (!isHovered) {
-      setOptionHoverIndex(index);
+      onSetOptionHoverIndex(index);
     }
-  }, [index, isHovered, setOptionHoverIndex]);
+  }, [index, isHovered, onSetOptionHoverIndex]);
 
-  const selectOption = useCallback(
-    (event: SyntheticEvent<HTMLElement>) => {
-      event.stopPropagation();
-      onClick(value);
-    },
-    [value, onClick]
-  );
+  const handleSelectOption = useCallback(() => {
+    onClick(value);
+  }, [value, onClick]);
 
   return (
     <li
-      className={cx(
-        'option',
-        {'option--selected': isSelected},
-        {'option--hovered': isHovered},
-        className
-      )}
-      onClick={selectOption}
-      onMouseOver={setHoverIndex}
+      className={cx('option', {option_selected: isSelected}, {option_hovered: isHovered}, className)}
+      onClick={handleSelectOption}
+      onMouseOver={handleSetHoverIndex}
+      data-name="select-option"
     >
       {name}
     </li>
   );
 };
 
+// $FlowFixMe
 export const Option = memo<TOptionProps<any>>(BaseOption);
