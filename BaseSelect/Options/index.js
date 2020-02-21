@@ -3,4 +3,11 @@
 export {Option} from './Option';
 export {OptionList} from './OptionList';
 
-export {TBaseOption, TBaseSelectClassNames, TCustomOption, TOptionClassNames, TOptionProps} from './types';
+export {
+  TBaseOption,
+  TBaseSelectClassNames,
+  TCustomOption,
+  TOptionClassNames,
+  TOptionProps,
+  TOptionsScrollBlockProps,
+} from './types';

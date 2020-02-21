@@ -1,6 +1,6 @@
 // @flow strict
 
-import React, {memo, useCallback, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Manager, Reference} from 'react-popper';
 import cn from 'classnames/bind';
 import noop from 'lodash/noop';
@@ -9,7 +9,12 @@ import {SIZE} from 'components/InputBase';
 
 import {KEY_CODE} from 'constants/keyCodes';
 
-import {defaultGetOptionId, defaultGetOptionName, defaultNoOptionsMessage} from './defaultValues';
+import {
+  defaultGetOptionId,
+  defaultGetOptionName,
+  defaultLoadingMessage,
+  defaultNoOptionsMessage,
+} from './defaultValues';
 import {getSelectClassNameWithModificators} from './helpers';
 import {useElementWidth} from './hooks';
 import {OptionList, type TBaseOption} from './Options';
@@ -27,20 +32,23 @@ type TReferenceProps = {
   },
 };
 
-const BaseSelectPure = <T: TBaseOption>({
+export const BaseSelect = <T: TBaseOption>({
   tabIndex = 0,
   classNames = {},
   maxOptionListWidth,
   value: selectedValue,
   options,
   placeholder = '',
-  error = '',
+  error = false,
   isOpen = false,
   isLoading = false,
   isDisabled = false,
+  showLoadingMessage = isLoading,
   onChange = noop,
   onBlur = noop,
   onFocus = noop,
+  onScrollOptionList = noop,
+  loadingMessage = defaultLoadingMessage,
   noOptionsMessage = defaultNoOptionsMessage,
   position,
   size = SIZE.sm,
@@ -151,12 +159,15 @@ const BaseSelectPure = <T: TBaseOption>({
             value={selectedValue}
             options={options}
             isLoading={isLoading}
+            showLoadingMessage={showLoadingMessage}
             optionHoverIndex={optionHoverIndex}
+            loadingMessage={loadingMessage}
             noOptionsMessage={noOptionsMessage}
             optionListHeader={optionListHeader}
             optionListFooter={optionListFooter}
             CustomOptionComponent={CustomOptionComponent}
             onChange={changeSelectedOption}
+            onScrollOptionList={onScrollOptionList}
             closeMenu={closeMenu}
             onSetOptionHoverIndex={setOptionHoverIndex}
             getOptionId={getOptionId}
@@ -167,6 +178,3 @@ const BaseSelectPure = <T: TBaseOption>({
     </Manager>
   );
 };
-
-// $FlowFixMe
-export const BaseSelect = memo<TBaseSelectProps<any>>(BaseSelectPure);

@@ -5,15 +5,13 @@ import {Popper, type PopperChildrenProps} from 'react-popper';
 import classNames from 'classnames/bind';
 import noop from 'lodash/noop';
 
-import ScrollBlock from 'components/ScrollBlock';
-
 import {KEY_CODE} from 'constants/keyCodes';
 
-import {defaultGetOptionId, defaultGetOptionName, defaultNoOptionsMessage, getIsSelectedOption} from '../';
+import {defaultGetOptionId, defaultGetOptionName, defaultLoadingMessage, defaultNoOptionsMessage} from '../';
 import {getOptionListWrapperClassname} from './helpers';
 import {useOnClickOutside} from './hooks';
+import {OptionsScrollBlock} from './OptionsScrollBlock';
 import {type TBaseOption, type TOptionListProps} from './types';
-import {Option} from '.';
 
 import style from './style.less';
 
@@ -22,14 +20,17 @@ const cx = classNames.bind(style);
 export const OptionList = <T: TBaseOption>({
   width = '100%',
   classNames = {},
-  value: selectedValue,
+  value,
   options = [],
   optionHoverIndex = -1,
   isLoading = false,
+  showLoadingMessage = isLoading,
+  loadingMessage = defaultLoadingMessage,
   noOptionsMessage = defaultNoOptionsMessage,
   closeMenu = noop,
   onSetOptionHoverIndex = noop,
   onChange = noop,
+  onScrollOptionList = noop,
   getOptionId = defaultGetOptionId,
   getOptionName = defaultGetOptionName,
   optionListHeader,
@@ -90,67 +91,11 @@ export const OptionList = <T: TBaseOption>({
     };
   }, [handleDocumentKeyDown]);
 
-  const renderOption = useCallback(
-    (currentOption: T, index: number) => {
-      const isSelected = Array.isArray(selectedValue)
-        ? selectedValue.some(selectedOption => getIsSelectedOption(currentOption, selectedOption, getOptionId))
-        : getIsSelectedOption(currentOption, selectedValue, getOptionId);
-
-      const generalOptionProps = {
-        key: getOptionId(currentOption) || index,
-        className: classNames.option,
-        name: getOptionName(currentOption),
-        value: currentOption,
-        index,
-        isSelected,
-        isHovered: optionHoverIndex === index,
-        onClick: onChange,
-        onSetOptionHoverIndex,
-      };
-
-      if (CustomOptionComponent) {
-        return <CustomOptionComponent {...generalOptionProps} />;
-      }
-
-      return <Option {...generalOptionProps} />;
-    },
-    [
-      selectedValue,
-      optionHoverIndex,
-      classNames,
-      onChange,
-      onSetOptionHoverIndex,
-      getOptionId,
-      getOptionName,
-      CustomOptionComponent,
-    ]
-  );
-
-  const renderNoOptionMessage = useCallback(
-    (message: string) => <p className={cx('noOptionMessageText', classNames.noOptionMessageText)}>{message}</p>,
-    [classNames]
-  );
-
-  const renderOptionList = useCallback(
-    (options: T[]) => {
-      if (isLoading) {
-        return renderNoOptionMessage('Загрузка...');
-      }
-
-      if (options.length === 0) {
-        return renderNoOptionMessage(noOptionsMessage);
-      }
-
-      return <ul className={cx('optionList', classNames.optionList)}>{options.map(renderOption)}</ul>;
-    },
-    [noOptionsMessage, isLoading, classNames, renderOption, renderNoOptionMessage]
-  );
-
   const popperRef = useOnClickOutside(closeMenu);
 
   return (
     <Popper innerRef={popperRef} positionFixed placement="bottom-start">
-      {({placement, ref, style}: PopperChildrenProps) => (
+      {({placement, ref, style, scheduleUpdate}: PopperChildrenProps) => (
         <div
           style={{...style, width}}
           ref={ref}
@@ -158,11 +103,25 @@ export const OptionList = <T: TBaseOption>({
           data-placement={placement}
           data-name="selectPopup"
         >
-          <ScrollBlock autoHeight autoHeightMin={0} autoHeightMax={250} autoHide>
-            {optionListHeader}
-            {renderOptionList(options)}
-            {optionListFooter}
-          </ScrollBlock>
+          <OptionsScrollBlock
+            scheduleUpdate={scheduleUpdate}
+            classNames={classNames}
+            value={value}
+            options={options}
+            optionHoverIndex={optionHoverIndex}
+            isLoading={isLoading}
+            showLoadingMessage={showLoadingMessage}
+            loadingMessage={loadingMessage}
+            noOptionsMessage={noOptionsMessage}
+            onSetOptionHoverIndex={onSetOptionHoverIndex}
+            onChange={onChange}
+            onScrollOptionList={onScrollOptionList}
+            getOptionId={getOptionId}
+            getOptionName={getOptionName}
+            optionListHeader={optionListHeader}
+            optionListFooter={optionListFooter}
+            CustomOptionComponent={CustomOptionComponent}
+          />
         </div>
       )}
     </Popper>

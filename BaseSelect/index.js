@@ -1,8 +1,13 @@
 // @flow strict
 
 export {BaseSelect} from './BaseSelect';
-export {getIsSelectedOption} from './helpers';
-export {defaultGetOptionId, defaultGetOptionName, defaultNoOptionsMessage} from './defaultValues';
+export {areOptionsEqual} from './helpers';
+export {
+  defaultGetOptionId,
+  defaultGetOptionName,
+  defaultNoOptionsMessage,
+  defaultLoadingMessage,
+} from './defaultValues';
 
-export {TGeneralSelectProps} from './types';
+export {TGeneralSelectProps, TSelectClassNames, TGetOptionHandlers} from './types';
 export {TBaseSelectClassNames, TCustomOption, TOptionClassNames, TBaseOption, TOptionProps} from './Options';

@@ -48,7 +48,7 @@ export type TGeneralSelectProps<Option> = {|
   /**
    * Текст ошибки
    */
-  error?: string,
+  error?: boolean,
   /**
    * Наличие индикатора загрузки
    */
@@ -58,9 +58,18 @@ export type TGeneralSelectProps<Option> = {|
    */
   isDisabled?: boolean,
   /**
+   * Показывать / не показывать сообщение о загрузке
+   */
+  showLoadingMessage?: boolean,
+  /**
    * Наличие иконки стрелочка вниз (вверх)
    */
+
   hasDropDownIcon?: boolean,
+  /**
+   * Сообщение, отображаемое, когда происходит загрузка
+   */
+  loadingMessage?: string,
   /**
    * Сообщение, отображаемое, когда в селекте нет опций
    */
@@ -73,6 +82,10 @@ export type TGeneralSelectProps<Option> = {|
    * Коллбек, выполняемый при блёре (закрытии) выпадающего списка
    */
   onBlur?: (event?: SyntheticEvent<HTMLElement>) => void,
+  /**
+   * Коллбек, выполняемый при скролле выпадающего списка
+   */
+  onScrollOptionList?: (event: SyntheticEvent<HTMLDivElement>) => void,
   /**
    * Компонент для кастомной отрисовки опций
    */

@@ -44,11 +44,20 @@ export type TOptionListProps<Option> = {|
   options: Option[],
   optionHoverIndex: number,
   isLoading?: boolean,
+  showLoadingMessage: boolean,
+  loadingMessage: string,
   noOptionsMessage: string,
   closeMenu: () => void,
   onSetOptionHoverIndex: (index: number) => void,
   onChange: (o: Option) => void,
+  onScrollOptionList?: (event: SyntheticEvent<HTMLDivElement>) => void,
   optionListHeader?: React$Node,
   optionListFooter?: React$Node,
   CustomOptionComponent?: TCustomOption<Option>,
+|};
+
+export type TOptionsScrollBlockProps<T> = {|
+  ...$Diff<TOptionListProps<T>, {|width?: number | string, closeMenu?: () => void|}>,
+  optionHoverIndex: number,
+  scheduleUpdate: () => void,
 |};

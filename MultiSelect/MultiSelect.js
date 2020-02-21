@@ -8,10 +8,10 @@ import {SIZE} from 'components/InputBase';
 import {
   BaseSelect,
   type TBaseOption,
+  areOptionsEqual,
   defaultGetOptionId,
   defaultGetOptionName,
   defaultNoOptionsMessage,
-  getIsSelectedOption,
 } from '../BaseSelect';
 import {SelectPlaceholder, SelectText} from '../BaseSelect/SelectElements';
 import {MultiOption} from './MultiOption';
@@ -25,7 +25,7 @@ export const MultiSelect = <T: TBaseOption>({
   selectedOptions = [],
   isInitialOpen = false,
   placeholder = '',
-  error = '',
+  error = false,
   isClearable = false,
   isLoading = false,
   isDisabled = false,
@@ -47,12 +47,10 @@ export const MultiSelect = <T: TBaseOption>({
 
   const changeSelectedOptions = useCallback(
     (selectedOption: T) => {
-      const hasInSelectedOptions = selectedOptions.some(option =>
-        getIsSelectedOption(option, selectedOption, getOptionId)
-      );
+      const hasInSelectedOptions = selectedOptions.some(option => areOptionsEqual(option, selectedOption, getOptionId));
 
       const newSelectedOptions: T[] = hasInSelectedOptions
-        ? selectedOptions.filter(option => !getIsSelectedOption(option, selectedOption, getOptionId))
+        ? selectedOptions.filter(option => !areOptionsEqual(option, selectedOption, getOptionId))
         : [...selectedOptions, selectedOption];
 
       onChange(newSelectedOptions);

@@ -18,11 +18,8 @@ type TClassNameConfig = {|
 
 type TGetOptionId<T> = (option?: T) => mixed;
 
-export const getIsSelectedOption = <T: TBaseOption>(
-  currentOption: T,
-  selectedOption?: T,
-  getOptionId: TGetOptionId<T>
-) => getOptionId(currentOption) === getOptionId(selectedOption);
+export const areOptionsEqual = <T: TBaseOption>(currentOption: T, selectedOption?: T, getOptionId: TGetOptionId<T>) =>
+  getOptionId(currentOption) === getOptionId(selectedOption);
 
 export const getSelectClassNameWithModificators = ({
   position = POSITION.topLeft,
