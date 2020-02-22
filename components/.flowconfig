@@ -1,4 +1,6 @@
 [ignore]
+.*/node_modules/react-popper/lib/cjs/Popper.js.flow
+.*/node_modules/react-popper/lib/cjs/Reference.js.flow
 
 [include]
 
