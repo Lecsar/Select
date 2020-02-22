@@ -3,7 +3,7 @@
 import React, {useCallback, useState} from 'react';
 import noop from 'lodash/noop';
 
-import {SIZE} from 'components/InputBase';
+import {SIZE} from '../BaseSelect/BaseSelect';
 
 import {
   BaseSelect,

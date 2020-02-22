@@ -8,9 +8,12 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/react-hooks": "^3.2.1",
     "@testing-library/user-event": "^7.1.2",
+    "empty": "^0.10.1",
     "flow-bin": "^0.118.0",
     "flow-typed": "^3.0.0",
     "jest": "^25.1.0",
+    "less": "^3.11.1",
+    "less-loader": "^5.0.0",
     "react": "^16.12.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.12.0",
@@ -45,6 +48,8 @@
     "@storybook/addon-links": "^5.3.13",
     "@storybook/addons": "^5.3.13",
     "@storybook/preset-create-react-app": "^1.5.2",
-    "@storybook/react": "^5.3.13"
+    "@storybook/react": "^5.3.13",
+    "customize-cra": "^0.9.1",
+    "react-app-rewired": "^2.1.5"
   }
 }

@@ -4,8 +4,8 @@ import React, {useCallback} from 'react';
 import classNames from 'classnames/bind';
 import noop from 'lodash/noop';
 
-import Icon from 'components/Icon';
-import Spinner from 'components/Spinner';
+import Icon from '../../../components/Icon';
+import Spinner from '../../../components/Spinner';
 
 import style from './style.less';
 

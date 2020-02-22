@@ -5,7 +5,7 @@ import {Popper, type PopperChildrenProps} from 'react-popper';
 import classNames from 'classnames/bind';
 import noop from 'lodash/noop';
 
-import {KEY_CODE} from 'constants/keyCodes';
+import {KEY_CODE} from '../../../../constants/keyCodes';
 
 import {defaultGetOptionId, defaultGetOptionName, defaultLoadingMessage, defaultNoOptionsMessage} from '../';
 import {getOptionListWrapperClassname} from './helpers';

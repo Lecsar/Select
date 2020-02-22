@@ -4,7 +4,7 @@ import React, {memo, useCallback} from 'react';
 import cn from 'classnames/bind';
 import noop from 'lodash/noop';
 
-import Icon from 'components/Icon';
+import Icon from '../../../components/Icon';
 
 import {type TBaseOption, type TOptionProps} from '../BaseSelect';
 

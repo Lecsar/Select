@@ -1,10 +1,9 @@
 // @flow
 
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
+import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import * as knobs from '@storybook/addon-knobs';
-
-import {storiesOf} from 'modules/storybook';
 
 import {AsyncSelect, type TLoadOptionParams, type TLoadOptionsData} from '.';
 
@@ -129,7 +128,6 @@ storiesOf(module)
         <div style={{width: 400}} className="grid3x3__item--topRight">
           <AsyncSelect
             size="lg"
-            size={size}
             selectedOptionData={value}
             loadOptions={mockLoadOptions}
             maxOptionListWidth={maxOptionListWidth}
@@ -148,7 +146,6 @@ storiesOf(module)
         <div style={{width: 700}} className="grid3x3__item--center">
           <AsyncSelect
             size="lg"
-            size={size}
             selectedOptionData={value}
             loadOptions={mockLoadOptions}
             maxOptionListWidth={maxOptionListWidth}
@@ -167,7 +164,6 @@ storiesOf(module)
         <div style={{width: 300}} className="grid3x3__item--bottomLeft">
           <AsyncSelect
             size="lg"
-            size={size}
             selectedOptionData={value}
             loadOptions={mockLoadOptions}
             maxOptionListWidth={maxOptionListWidth}
@@ -186,7 +182,6 @@ storiesOf(module)
         <div style={{width: 444}} className="grid3x3__item--bottomRight">
           <AsyncSelect
             size="lg"
-            size={size}
             selectedOptionData={value}
             loadOptions={mockLoadOptions}
             maxOptionListWidth={maxOptionListWidth}

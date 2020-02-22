@@ -5,7 +5,7 @@ import {Manager, Reference} from 'react-popper';
 import cn from 'classnames/bind';
 import noop from 'lodash/noop';
 
-import {KEY_CODE} from 'constants/keyCodes';
+import {KEY_CODE} from '../../../constants/keyCodes';
 
 import {
   defaultGetOptionId,
@@ -23,6 +23,8 @@ import {type TBaseSelectProps} from './types';
 import style from './style.less';
 
 const cx = cn.bind(style);
+
+console.log(style);
 
 export const SIZE = Object.freeze({
   sm: 'sm',

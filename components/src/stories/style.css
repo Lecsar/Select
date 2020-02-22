@@ -1,0 +1,304 @@
+a {
+  text-decoration: none;
+}
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+sub,
+sup {
+  line-height: 0;
+}
+div,
+span,
+object,
+iframe,
+img,
+table,
+caption,
+thead,
+tbody,
+tfoot,
+tr,
+tr,
+td,
+article,
+aside,
+canvas,
+details,
+figure,
+hgroup,
+menu,
+nav,
+footer,
+header,
+section,
+summary,
+mark,
+audio,
+video {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+ins,
+q,
+samp,
+small,
+strong,
+b,
+i,
+hr,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+legend,
+label {
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+}
+article,
+aside,
+canvas,
+figure,
+figure img,
+figcaption,
+hgroup,
+footer,
+header,
+nav,
+section,
+audio,
+video {
+  display: block;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+caption,
+th,
+td {
+  text-align: left;
+  vertical-align: middle;
+}
+a img {
+  border: 0;
+}
+:focus {
+  outline: 0;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  line-height: 20px;
+  color: #475359;
+  font-weight: 400;
+}
+html {
+  height: 100%;
+}
+body {
+  overflow-y: scroll;
+  min-height: 100%;
+}
+input[type='text']::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #a1a6ab !important;
+}
+input[type='text'],
+input[type='email'],
+input[type='password'],
+textarea {
+  -webkit-appearance: none;
+}
+input[type='search'] {
+  -webkit-appearance: textfield;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+button,
+input {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html [type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button;
+}
+button::-moz-focus-inner,
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+button:-moz-focusring,
+[type='button']:-moz-focusring,
+[type='reset']:-moz-focusring,
+[type='submit']:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+html,
+body,
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+b {
+  font-weight: 500;
+}
+#root {
+  position: relative;
+  height: calc(100vh - 48px);
+}
+@media (min-width: 699.98px) {
+  #root {
+    margin: 24px;
+  }
+}
+.grid4x4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+}
+
+.grid4x4__item--top {
+  align-self: start;
+}
+
+.grid4x4__item--bottom {
+  align-self: end;
+}
+
+.grid4x4__item--left {
+  justify-self: start;
+}
+
+.grid4x4__item--right {
+  justify-self: end;
+}
+
+.grid3x3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    'grid-3x3-topLeft     grid-3x3-top      grid-3x3-topRight'
+    'grid-3x3-left        grid-3x3-center   grid-3x3-right'
+    'grid-3x3-bottomLeft  grid-3x3-bottom   grid-3x3-bottomRight';
+}
+
+.grid3x3__item--top {
+  grid-area: grid-3x3-top;
+  align-self: start;
+  justify-self: start;
+}
+
+.grid3x3__item--topLeft {
+  grid-area: grid-3x3-topLeft;
+  align-self: start;
+  justify-self: start;
+}
+
+.grid3x3__item--topRight {
+  grid-area: grid-3x3-topRight;
+  align-self: start;
+  justify-self: end;
+}
+
+.grid3x3__item--left {
+  grid-area: grid-3x3-left;
+  align-self: center;
+  justify-self: start;
+}
+
+.grid3x3__item--right {
+  grid-area: grid-3x3-right;
+  align-self: center;
+  justify-self: end;
+}
+
+.grid3x3__item--center {
+  grid-area: grid-3x3-center;
+  align-self: center;
+  justify-self: center;
+}
+
+.grid3x3__item--bottom {
+  grid-area: grid-3x3-bottom;
+  align-self: end;
+  justify-self: center;
+}
+
+.grid3x3__item--bottomLeft {
+  grid-area: grid-3x3-bottomLeft;
+  align-self: end;
+  justify-self: start;
+}
+
+.grid3x3__item--bottomRight {
+  grid-area: grid-3x3-bottomRight;
+  align-self: end;
+  justify-self: end;
+}
