@@ -9,5 +9,5 @@ export {
   defaultLoadingMessage,
 } from './defaultValues';
 
-export {TGeneralSelectProps, TSelectClassNames, TGetOptionHandlers} from './types';
-export {TBaseSelectClassNames, TCustomOption, TOptionClassNames, TBaseOption, TOptionProps} from './Options';
+export type {TGeneralSelectProps, TSelectClassNames, TGetOptionHandlers} from './types';
+export type {TBaseSelectClassNames, TCustomOption, TOptionClassNames, TBaseOption, TOptionProps} from './Options';
