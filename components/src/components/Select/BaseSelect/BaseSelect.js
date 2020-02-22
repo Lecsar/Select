@@ -5,8 +5,6 @@ import {Manager, Reference} from 'react-popper';
 import cn from 'classnames/bind';
 import noop from 'lodash/noop';
 
-import {SIZE} from 'components/InputBase';
-
 import {KEY_CODE} from 'constants/keyCodes';
 
 import {
@@ -25,6 +23,12 @@ import {type TBaseSelectProps} from './types';
 import style from './style.less';
 
 const cx = cn.bind(style);
+
+export const SIZE = Object.freeze({
+  sm: 'sm',
+  nm: 'nm',
+  lg: 'lg',
+});
 
 type TReferenceProps = {
   ref: {

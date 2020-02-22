@@ -1,0 +1,47 @@
+@icon-size-xs: 16px;
+@icon-size-sm: 20px;
+@icon-size-nm: 24px;
+@icon-size-lg: 32px;
+@icon-size-xl: 48px;
+
+.Icon {
+  flex-grow: 0;
+  display: inline-block;
+  vertical-align: middle;
+  &_color_gray {
+    color: #919fad;
+  }
+  &_control {
+    &:hover {
+      color: #5a93ff;
+    }
+  }
+  &_size {
+    &_none {
+      /* empty */
+    }
+    &_xs {
+      height: @icon-size-xs;
+      width: @icon-size-xs;
+    }
+
+    &_sm {
+      height: @icon-size-sm;
+      width: @icon-size-sm;
+    }
+
+    &_nm {
+      height: @icon-size-nm;
+      width: @icon-size-nm;
+    }
+
+    &_lg {
+      height: @icon-size-lg;
+      width: @icon-size-lg;
+    }
+    &_xl {
+      height: @icon-size-xl;
+      width: @icon-size-xl;
+    }
+  }
+}

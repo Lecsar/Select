@@ -1,7 +1,7 @@
 // @flow strict
 
-import {type PropTypesPosition} from 'components/field/Group';
-import {type TSize} from 'components/InputBase';
+import {type PropTypesPosition} from './helpers';
+import {SIZE} from './BaseSelect';
 
 import {type TBaseSelectClassNames, type TCustomOption, type TOptionClassNames} from '.';
 
@@ -38,7 +38,7 @@ export type TGeneralSelectProps<Option> = {|
   /**
    * Размер (высота) селекта sm, nm, lg
    */
-  size?: TSize,
+  size?: $Keys<typeof SIZE>,
   /**
    * Позиция селекта, необходима для закругления
    * определенных границ в зависимости от позиции

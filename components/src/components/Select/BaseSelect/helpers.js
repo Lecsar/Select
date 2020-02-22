@@ -1,9 +1,27 @@
 // @flow strict
 
-import {POSITION, type PropTypesPosition} from 'components/field/Group';
-import {SIZE} from 'components/InputBase';
-
+import {SIZE} from './BaseSelect';
 import {type TBaseOption} from './';
+
+export const POSITION = Object.freeze({
+  left: 'left',
+  middle: 'middle',
+  right: 'right',
+  top: 'top',
+  bottom: 'bottom',
+  topLeft: 'topLeft',
+  topRight: 'topRight',
+  topMiddle: 'topMiddle',
+  topMight: 'topMight',
+  middleLeft: 'middleLeft',
+  middleMiddle: 'middleMiddle',
+  middleRight: 'middleRight',
+  bottomLeft: 'bottomLeft',
+  bottomMiddle: 'bottomMiddle',
+  bottomRight: 'bottomRight',
+});
+
+export type PropTypesPosition = $Values<typeof POSITION>;
 
 type TClassNameConfig = {|
   position?: PropTypesPosition,

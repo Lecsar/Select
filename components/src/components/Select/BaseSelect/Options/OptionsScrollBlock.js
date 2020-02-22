@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import debounce from 'lodash/debounce';
 import noop from 'lodash/noop';
 
-import ScrollBlock from 'components/ScrollBlock';
+import {ScrollBlock} from 'components/ScrollBlock';
 
 import {
   areOptionsEqual,
