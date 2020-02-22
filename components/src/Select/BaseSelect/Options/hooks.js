@@ -6,7 +6,8 @@ export const useOnClickOutside = (handler: () => void) => {
   const ref = useRef<HTMLElement | null>(null);
 
   const listener = useCallback(
-    (event: SyntheticEvent<HTMLElement>) => {
+    (event: *) => {
+      // $FlowFixMe
       if (!ref.current || ref.current.contains(event.target)) {
         return;
       }

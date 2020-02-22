@@ -1,9 +1,10 @@
 // @flow
 
 import React, {useCallback, useState} from 'react';
-import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import * as knobs from '@storybook/addon-knobs';
+
+import {storiesOf} from 'modules/storybook';
 
 import {AsyncSelect, type TLoadOptionParams, type TLoadOptionsData} from '.';
 

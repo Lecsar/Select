@@ -1,19 +1,13 @@
 // @flow strict
 
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
+import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import * as knobs from '@storybook/addon-knobs';
 
-import {storiesOf} from 'modules/storybook';
+import {MultiSelect} from '.';
 
-import {Select} from '..';
-
-type TOption = {|
-  id: IdType,
-  name: string,
-|};
-
-export const optionList: TOption[] = [
+export const optionList = [
   {id: 1, name: 'Test_1'},
   {id: 2, name: 'Test_2 Test_2 Test_2 Test_2 Test_2 Test_2 '},
   {
@@ -39,8 +33,8 @@ const selectSize = {
 
 storiesOf(module)
   .addDecorator(knobs.withKnobs)
-  .add('Single Select', () => {
-    const [selectedValue, setSelectedValue] = useState(optionList[1]);
+  .add('MultiSelect', () => {
+    const [selectedOptions, setSelectedOptions] = useState([optionList[0], optionList[3]]);
 
     const size = knobs.select('size', selectSize, selectSize.sm);
     const isClearable = knobs.boolean('isClearable', false);
@@ -51,18 +45,19 @@ storiesOf(module)
     const maxOptionListWidth = knobs.number('maxOptionListWidth');
     const error = knobs.text('error', '');
     const noOptionsMessage = knobs.text('noOptionsMessage', 'Нет опций');
-    const onChange = useCallback(option => {
-      action('onChange')(option);
-      setSelectedValue(option);
-    }, []);
+    const onChange = options => {
+      action('onChange')(options);
+      setSelectedOptions(options);
+    };
 
     return (
       <div className="grid3x3">
-        <div style={{width: 400}} className="grid3x3__item--topLeft">
-          <Select
+        <div style={{width: 200}} className="grid3x3__item--topLeft">
+          <MultiSelect
             placeholder={placeholder}
             maxOptionListWidth={maxOptionListWidth}
             size={size}
+            selectedOptions={[]}
             options={[]}
             error={error}
             noOptionsMessage={noOptionsMessage}
@@ -74,12 +69,12 @@ storiesOf(module)
           />
         </div>
 
-        <div style={{width: 500}} className="grid3x3__item--topRight">
-          <Select
+        <div style={{width: 400}} className="grid3x3__item--topRight">
+          <MultiSelect
             placeholder={placeholder}
             maxOptionListWidth={maxOptionListWidth}
             size={size}
-            value={selectedValue}
+            selectedOptions={selectedOptions}
             options={optionList}
             error={error}
             noOptionsMessage={noOptionsMessage}
@@ -91,12 +86,12 @@ storiesOf(module)
           />
         </div>
 
-        <div style={{width: 250}} className="grid3x3__item--center">
-          <Select
+        <div style={{width: 500}} className="grid3x3__item--center">
+          <MultiSelect
             placeholder={placeholder}
             maxOptionListWidth={maxOptionListWidth}
             size={size}
-            value={selectedValue}
+            selectedOptions={selectedOptions}
             options={optionList}
             error={error}
             noOptionsMessage={noOptionsMessage}
@@ -109,11 +104,11 @@ storiesOf(module)
         </div>
 
         <div style={{width: 200}} className="grid3x3__item--bottomLeft">
-          <Select
+          <MultiSelect
             placeholder={placeholder}
             maxOptionListWidth={maxOptionListWidth}
             size={size}
-            value={selectedValue}
+            selectedOptions={selectedOptions}
             options={optionList}
             error={error}
             noOptionsMessage={noOptionsMessage}
@@ -125,12 +120,12 @@ storiesOf(module)
           />
         </div>
 
-        <div style={{width: 100}} className="grid3x3__item--bottomRight">
-          <Select
+        <div style={{width: 700}} className="grid3x3__item--bottomRight">
+          <MultiSelect
             placeholder={placeholder}
             maxOptionListWidth={maxOptionListWidth}
             size={size}
-            value={selectedValue}
+            selectedOptions={selectedOptions}
             options={optionList}
             error={error}
             noOptionsMessage={noOptionsMessage}
